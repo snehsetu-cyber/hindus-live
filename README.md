@@ -50,3 +50,16 @@ Add an entry to `data/temples.js`. A temple with a 24×7 stream can drop out of 
 ## Rules to stay inside
 
 Use only YouTube's embed player. Don't download, re-stream or hide YouTube branding or ads. If a channel has embedding turned off, the app automatically shows a "Watch on the temple's channel" link instead.
+
+## Panchang pages
+
+- `/panchang` shows today's panchang for New Delhi. `/panchang/<city>` shows today's for that city, and `/panchang/<city>/<YYYY-MM-DD>` shows any date.
+- `lib/panchang.js` is the calculation engine. It computes tithi, nakshatra, yoga and karana with their end times, plus sunrise/sunset, moonrise/moonset, Rahu Kaal, Yamaganda, Gulika, Abhijit and Brahma muhurat, the lunar month (amanta and purnimanta, including adhika months), and Vikram and Shaka samvat. Planetary positions come from `astronomy-engine`, and the ayanamsa is Lahiri.
+- `data/cities.js` holds the city list. Add a line to create a new city page; it's automatically added to the sitemap.
+- `npm test` checks the engine against published panchangs for New Delhi, allowing 2 minutes of difference.
+
+## Aarti pages
+
+- `/aarti` lists every text, grouped by deity. `/aarti/<slug>` shows the full lyrics, with text-size buttons, WhatsApp share, copy and a print layout.
+- The texts live in `data/aartis.js`. Add only traditional, public-domain texts, never film songs or modern bhajans.
+- Each text was checked line by line against two independent digital copies. Proofread them once against a printed edition (e.g. Gita Press *Aarti Sangrah*) before promoting the pages.

@@ -5,9 +5,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node test/youtube.test.mjs"
+    "test": "node test/youtube.test.mjs && node test/panchang.test.mjs && node test/aartis.test.mjs"
   },
   "dependencies": {
+    "astronomy-engine": "^2.1.19",
     "next": "^16.4.3",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
