@@ -46,6 +46,7 @@ assert.equal(by.a.videoId, 'AAAAAAAAAA2');
 assert.equal(by.b.state, 'upcoming');
 assert.equal(by.b.embeddable, false);
 assert.equal(by.c.state, 'offline');
+assert.equal(by.c.thumbVideoId, 'CCCCCCCCCC1');
 assert.equal(by.d.state, 'external');
 assert.equal(apiCalls, 1, 'all channels batched into one videos.list call');
 

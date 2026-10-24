@@ -28,14 +28,42 @@ function Player({ temple }) {
   );
 }
 
-function Badge({ status, now }) {
+function nextAartiFor(temple, now) {
+  return upcomingAartis([temple], { now, limit: 1 })[0] || null;
+}
+
+function Badge({ temple, now }) {
+  const status = temple.status;
   if (status.state === 'live') return <span className="badge live">● LIVE</span>;
   if (status.state === 'upcoming' && status.scheduledStart) {
     const min = Math.max(0, Math.round((new Date(status.scheduledStart) - now) / 60000));
     return <span className="badge soon">Starts {formatAway(min)}</span>;
   }
-  if (status.state === 'external') return <span className="badge ext">Official site</span>;
-  return <span className="badge off">Offline</span>;
+  if (status.state === 'external') return <span className="badge ext">Watch on official site ↗</span>;
+  const next = nextAartiFor(temple, now);
+  if (next) return <span className="badge soon">{next.onNow ? `${next.aarti} on now` : `Next: ${next.aarti} ${format12h(next.time)}`}</span>;
+  return <span className="badge off">Not live now</span>;
+}
+
+function Thumb({ temple, now }) {
+  const s = temple.status;
+  const vid = s.videoId || s.thumbVideoId;
+  if (vid) {
+    return (
+      <div className={`thumb ${s.state === 'offline' ? 'dim' : ''}`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`https://i.ytimg.com/vi/${vid}/hqdefault.jpg`} alt="" loading="lazy" />
+        <Badge temple={temple} now={now} />
+      </div>
+    );
+  }
+  return (
+    <div className={`thumb text-thumb ${s.state === 'external' ? 'ext' : ''}`}>
+      <span className="thumb-hi">{temple.nameHi}</span>
+      <span className="thumb-place">{temple.place}</span>
+      <Badge temple={temple} now={now} />
+    </div>
+  );
 }
 
 export default function LiveBoard({ initial }) {
@@ -122,15 +150,7 @@ export default function LiveBoard({ initial }) {
             const external = t.status.state === 'external' || t.status.state === 'offline';
             const content = (
               <>
-                <div className="thumb">
-                  {t.status.videoId ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={`https://i.ytimg.com/vi/${t.status.videoId}/hqdefault.jpg`} alt="" />
-                  ) : (
-                    <span aria-hidden="true">ॐ</span>
-                  )}
-                  <Badge status={t.status} now={now} />
-                </div>
+                <Thumb temple={t} now={now} />
                 <strong>{t.name}</strong>
                 <span className="muted">{t.place}</span>
               </>
