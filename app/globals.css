@@ -164,3 +164,67 @@ a { color: var(--accent-ink); }
   body { background: #fff; }
   .stanza.refrain { background: none; padding: 0; }
 }
+
+/* ---------- Puja vidhi ---------- */
+.crumbs.light, .crumbs.light a { color: #d6c3b3; }
+.h1-hi { display: block; font-family: 'Mukta', system-ui, sans-serif; font-size: 0.6em; font-weight: 500; color: #f3dcc6; margin-top: 4px; }
+.muhurat-card { margin-top: 20px; background: #3b2a20; border: 1px solid #6b5446; border-radius: 16px; padding: 18px 20px; max-width: 640px; }
+.mc-label { font-size: 14px; color: #fdba74; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+.mc-time { font-size: clamp(28px, 5vw, 40px); font-weight: 700; color: #fff; margin-top: 4px; }
+.mc-note { font-size: 14px; color: #f3dcc6; margin-top: 4px; }
+.mc-grid { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 16px; margin: 14px 0 0; font-size: 15px; }
+.mc-grid dt { color: #d6c3b3; }
+.mc-grid dd { margin: 0; color: #fff; font-weight: 500; }
+.mc-city { margin-top: 16px; display: flex; flex-direction: column; gap: 4px; max-width: 320px; }
+.mc-city label { font-size: 14px; color: #d6c3b3; }
+.mc-city select { min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid #6b5446; background: var(--ink); color: var(--ground); font: inherit; color-scheme: dark; }
+
+.puja-body { max-width: 880px; padding-top: 8px; padding-bottom: 48px; }
+.puja-body h2 { font-size: 28px; margin-top: 40px; }
+.puja-body h2 span { font-family: 'Mukta', system-ui, sans-serif; font-size: 17px; color: var(--muted); margin-left: 6px; }
+.toc { position: sticky; top: 0; z-index: 2; background: var(--ground); display: flex; gap: 4px 18px; overflow-x: auto; padding: 10px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.toc a { padding: 8px 0; font-weight: 500; color: var(--ink); text-decoration: none; }
+.toc a:hover { color: var(--accent-ink); }
+.prose p { font-size: 18px; line-height: 1.65; margin: 18px 0 0; }
+
+.samagri { margin-top: 12px; }
+.samagri-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; background: var(--accent-soft); border-radius: 12px; padding: 10px 14px; }
+.samagri-count { font-weight: 700; color: #7c2d12; }
+.samagri-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.samagri-actions button { min-height: 44px; padding: 0 14px; border-radius: 22px; border: 1px solid #c9b4a2; background: var(--card); color: var(--ink); font: inherit; font-size: 15px; cursor: pointer; }
+.samagri-groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 14px; }
+.samagri-group { border: 1px solid var(--line); border-radius: 14px; background: var(--card); padding: 12px 16px 8px; margin: 0; min-width: 0; }
+.samagri-group legend { font-weight: 700; padding: 0 6px; }
+.samagri-group legend span { font-weight: 400; color: var(--muted); font-size: 14px; }
+.samagri-group label { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; min-height: 28px; cursor: pointer; border-bottom: 1px solid #f3e8dc; }
+.samagri-group label:last-child { border-bottom: 0; }
+.samagri-group input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--accent); flex: none; }
+.samagri-group em { font-style: normal; color: var(--muted); font-size: 14px; display: block; }
+.samagri-group label.done span { color: var(--muted); text-decoration: line-through; }
+
+.steps { list-style: none; counter-reset: step; padding: 0; margin: 16px 0 0; }
+.steps > li { counter-increment: step; position: relative; padding: 0 0 26px 58px; border-left: 2px solid var(--line); margin-left: 18px; }
+.steps > li:last-child { border-left-color: transparent; }
+.steps > li::before { content: counter(step); position: absolute; left: -19px; top: 0; width: 36px; height: 36px; border-radius: 18px; background: var(--accent); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.steps h3 { margin: 4px 0 0; font-size: 20px; }
+.steps h3 span { font-weight: 500; color: var(--muted); font-size: 16px; margin-left: 6px; }
+.steps h3 small { display: block; font-size: 13px; font-weight: 700; color: var(--accent-ink); letter-spacing: 0.5px; text-transform: uppercase; margin-top: 2px; }
+.steps p { font-size: 17px; line-height: 1.65; margin: 8px 0 0; }
+.mantra { display: inline-block; background: var(--accent-soft); color: #7c2d12; font-weight: 700; font-size: 20px !important; border-radius: 10px; padding: 6px 14px; }
+.step-links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.step-links a { font-weight: 500; }
+.tips { font-size: 17px; line-height: 1.6; padding-left: 22px; }
+.tips li { margin-top: 8px; }
+.table-wrap { overflow-x: auto; margin-top: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+.mtable { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 480px; }
+.mtable th, .mtable td { text-align: left; padding: 10px 14px; border-bottom: 1px solid #f3e8dc; }
+.mtable thead th { background: var(--accent-soft); color: #7c2d12; }
+.mtable tbody th { font-weight: 500; }
+.mtable tr.current { background: #fff3e6; font-weight: 700; }
+.faq { border-bottom: 1px solid var(--line); padding: 12px 0; }
+.faq summary { font-weight: 700; font-size: 17px; cursor: pointer; min-height: 28px; }
+.faq p { font-size: 17px; line-height: 1.6; margin: 8px 0 0; }
+
+.fest-banner { display: block; margin-top: 16px; background: linear-gradient(90deg, #7c2d12, #b45309); color: #fff; border-radius: 14px; padding: 14px 18px; text-decoration: none; }
+.fest-banner strong { font-size: 18px; }
+.fest-banner span { display: block; font-size: 15px; color: #fde7d0; }

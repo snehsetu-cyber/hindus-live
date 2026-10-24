@@ -63,3 +63,12 @@ Use only YouTube's embed player. Don't download, re-stream or hide YouTube brand
 - `/aarti` lists every text, grouped by deity. `/aarti/<slug>` shows the full lyrics, with text-size buttons, WhatsApp share, copy and a print layout.
 - The texts live in `data/aartis.js`. Add only traditional, public-domain texts, never film songs or modern bhajans.
 - Each text was checked line by line against two independent digital copies. Proofread them once against a printed edition (e.g. Gita Press *Aarti Sangrah*) before promoting the pages.
+
+## Puja vidhi pages
+
+- `/puja` lists the guides. `/puja/diwali-lakshmi-puja` shows the guide for New Delhi, and `/puja/diwali-lakshmi-puja/<city>` shows it for any city in `data/cities.js`.
+- The content lives in `data/pujas.js`: intro, samagri checklist groups, steps, tips and FAQs. Each samagri item has room for a future shop or affiliate link.
+- `lib/muhurat.js` computes the Lakshmi Puja muhurat: Pradosh Kaal ∩ Vrishabha lagna ∩ Amavasya, plus Nishita Kaal. `npm test` checks it against published 2026 timings for 11 cities, allowing 2 minutes of difference.
+- To add next year's Diwali, put its date in `DIWALI_DATES` in `lib/muhurat.js`. The test checks that Amavasya prevails at Pradosh Kaal on that date.
+- Auspicious windows are rounded inward and inauspicious ones outward, so a shown time is never outside the real window.
+- Have a pandit review each guide before promoting it, since customs vary by region and family.

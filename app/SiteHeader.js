@@ -7,6 +7,7 @@ export default function SiteHeader() {
           <a href="/#live">Live Darshan</a>
           <a href="/panchang">Panchang</a>
           <a href="/aarti">Aarti</a>
+          <a href="/puja">Puja Vidhi</a>
           <a href="/#soon">Aarti Times</a>
           <a href="/#all">All Temples</a>
         </nav>

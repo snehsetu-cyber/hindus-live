@@ -1,7 +1,7 @@
 import { computePanchang } from '../../lib/panchang.js';
 import { PAKSHA_HI } from '../../lib/panchang-names.js';
 import { cities } from '../../data/cities.js';
-import { time, timeRel, range, longDate, longDateHi, isoDate, addDays, duration } from '../../lib/format.js';
+import { time, timeRel, range, rangeInside, rangeOutside, longDate, longDateHi, isoDate, addDays, duration } from '../../lib/format.js';
 import SiteHeader, { SiteFooter } from '../SiteHeader.js';
 import CityPicker from './CityPicker.js';
 
@@ -21,7 +21,7 @@ export function panchangMeta(city, date, p, path) {
   const description =
     `${p.weekday.en}, ${longDate(date)} panchang for ${city.name}: ${t.paksha} ${t.en} tithi upto ${timeRel(t.end, date)}, ` +
     `${n.en} nakshatra upto ${timeRel(n.end, date)}, sunrise ${time(p.sunrise)}, sunset ${time(p.sunset)}, ` +
-    `Rahu Kaal ${range(p.rahuKaal, date)}. ${monthLabel(p.month.purnimanta)} month, Vikram Samvat ${p.samvat.vikram}.`;
+    `Rahu Kaal ${rangeOutside(p.rahuKaal, date)}. ${monthLabel(p.month.purnimanta)} month, Vikram Samvat ${p.samvat.vikram}.`;
   return { title, description, alternates: { canonical: `${SITE}${path}` }, openGraph: { title, description, url: `${SITE}${path}` } };
 }
 
@@ -110,17 +110,17 @@ export default function PanchangView({ city, date, isToday }) {
           <section className="pcard good" aria-labelledby="h-shubh">
             <h2 id="h-shubh">Auspicious time <span>शुभ मुहूर्त</span></h2>
             <dl className="kv">
-              <dt>Abhijit Muhurat · अभिजित</dt><dd>{range(p.abhijit, date)}</dd>
-              <dt>Brahma Muhurat · ब्रह्म</dt><dd>{range(p.brahmaMuhurta, date)}</dd>
+              <dt>Abhijit Muhurat · अभिजित</dt><dd>{rangeInside(p.abhijit, date)}</dd>
+              <dt>Brahma Muhurat · ब्रह्म</dt><dd>{rangeInside(p.brahmaMuhurta, date)}</dd>
             </dl>
           </section>
 
           <section className="pcard bad" aria-labelledby="h-ashubh">
             <h2 id="h-ashubh">Inauspicious time <span>अशुभ काल</span></h2>
             <dl className="kv">
-              <dt>Rahu Kaal · राहुकाल</dt><dd>{range(p.rahuKaal, date)}</dd>
-              <dt>Yamaganda · यमगण्ड</dt><dd>{range(p.yamaganda, date)}</dd>
-              <dt>Gulika Kaal · गुलिक</dt><dd>{range(p.gulika, date)}</dd>
+              <dt>Rahu Kaal · राहुकाल</dt><dd>{rangeOutside(p.rahuKaal, date)}</dd>
+              <dt>Yamaganda · यमगण्ड</dt><dd>{rangeOutside(p.yamaganda, date)}</dd>
+              <dt>Gulika Kaal · गुलिक</dt><dd>{rangeOutside(p.gulika, date)}</dd>
             </dl>
           </section>
 
@@ -156,7 +156,7 @@ export default function PanchangView({ city, date, isToday }) {
       </main>
       <SiteFooter>
         Calculated for {city.name} ({city.lat.toFixed(2)}°N, {city.lon.toFixed(2)}°E) using Lahiri ayanamsa. All times in IST,
-        rounded to the nearest minute. Tithi, nakshatra, yoga and karana end times are shown as “upto”; elements are listed from
+        rounded to the nearest minute; muhurat windows are rounded inward and Rahu Kaal, Yamaganda and Gulika outward. Tithi, nakshatra, yoga and karana end times are shown as “upto”; elements are listed from
         sunrise to the next sunrise. For festival and vrat dates, follow your family or temple tradition.
       </SiteFooter>
     </>

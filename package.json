@@ -5,7 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node test/youtube.test.mjs && node test/panchang.test.mjs && node test/aartis.test.mjs"
+    "test": "node test/youtube.test.mjs && node test/panchang.test.mjs && node test/aartis.test.mjs && node test/muhurat.test.mjs"
   },
   "dependencies": {
     "astronomy-engine": "^2.1.19",
