@@ -11,6 +11,7 @@ function Player({ temple }) {
   if (s.videoId && s.embeddable) {
     return (
       <div className="player">
+        {s.state === 'live' && <span className="live-pill">● LIVE DARSHAN</span>}
         <iframe
           src={`https://www.youtube.com/embed/${s.videoId}?autoplay=1&mute=1&rel=0`}
           title={`${temple.name} live darshan`}
@@ -66,7 +67,7 @@ function Thumb({ temple, now }) {
   );
 }
 
-export default function LiveBoard({ initial }) {
+export default function LiveBoard({ initial, middle }) {
   const [data, setData] = useState(initial);
   const [now, setNow] = useState(() => new Date(initial.updatedAt));
   const [selectedId, setSelectedId] = useState(null);
@@ -91,6 +92,8 @@ export default function LiveBoard({ initial }) {
   const liveNow = sorted.filter((t) => t.status.state === 'live');
   const featured = sorted.find((t) => t.id === selectedId) || liveNow[0] || sorted[0];
   const soon = upcomingAartis(data.temples, { now, limit: 6 });
+  const nxt = nextAartiFor(featured, now);
+  const nextLine = nxt ? (nxt.onNow ? `${nxt.aarti} on now` : `${nxt.aarti} at ${format12h(nxt.time)}`) : '';
 
   return (
     <>
@@ -105,13 +108,14 @@ export default function LiveBoard({ initial }) {
 
       <section id="live" className="wrap hero">
         <div className="hero-main">
-          <Player temple={featured} />
+          <div className="arch"><Player temple={featured} /></div>
           <div className="hero-meta">
-            <div>
-              <div className="eyebrow">{featured.status.state === 'live' ? 'Now live' : 'Featured'} · {featured.place}</div>
-              <h1>{featured.name}</h1>
-              <p className="hi">{featured.nameHi}</p>
-            </div>
+            <div className="eyebrow">{featured.status.state === 'live' ? 'Live darshan' : 'Featured'} · {featured.place}</div>
+            <h2 lang="hi">{featured.nameHi}</h2>
+            <p className="hi">{featured.name}{nextLine ? ` · ${nextLine}` : ''}</p>
+          </div>
+          <div className="hero-actions">
+            <a className="btn" href="#all">Other temples</a>
             <a
               className="btn ghost"
               href={`https://wa.me/?text=${encodeURIComponent(`Live darshan: ${featured.name} — https://hindus.live/#live`)}`}
@@ -123,13 +127,13 @@ export default function LiveBoard({ initial }) {
           </div>
         </div>
 
-        <aside id="soon" className="soon" aria-label="Aartis starting soon">
-          <h2>Starting soon</h2>
+        <section id="soon" className="soon" aria-labelledby="h-soon">
+          <div className="ornament"><h2 id="h-soon" lang="hi">आज की आरती</h2></div>
           {soon.length === 0 && <p className="muted">No aartis in the next 24 hours.</p>}
           <ul>
             {soon.map((a) => (
               <li key={`${a.templeId}-${a.start}`}>
-                <button type="button" className="soon-row" onClick={() => setSelectedId(a.templeId)}>
+                <button type="button" className="soon-row" onClick={() => { setSelectedId(a.templeId); document.getElementById('live')?.scrollIntoView({ behavior: 'smooth' }); }}>
                   <span className={`time ${a.onNow ? 'on' : ''}`}>{a.onNow ? 'NOW' : format12h(a.time)}</span>
                   <span className="soon-text">
                     <strong>{a.aarti}</strong>
@@ -140,11 +144,13 @@ export default function LiveBoard({ initial }) {
               </li>
             ))}
           </ul>
-        </aside>
+        </section>
       </section>
 
+      {middle}
+
       <section id="all" className="wrap grid-section">
-        <h2>All temples</h2>
+        <div className="ornament"><h2>All temples <span lang="hi">· सभी मंदिर</span></h2></div>
         <div className="grid">
           {sorted.map((t) => {
             const external = t.status.state === 'external' || t.status.state === 'offline';
@@ -158,7 +164,7 @@ export default function LiveBoard({ initial }) {
             return external ? (
               <a key={t.id} className="card" href={t.status.watchUrl || '#'} target="_blank" rel="noopener noreferrer">{content}</a>
             ) : (
-              <button key={t.id} type="button" className="card" onClick={() => { setSelectedId(t.id); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+              <button key={t.id} type="button" className="card" onClick={() => { setSelectedId(t.id); document.getElementById('live')?.scrollIntoView({ behavior: 'smooth' }); }}>
                 {content}
               </button>
             );
