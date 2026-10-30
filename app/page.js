@@ -5,6 +5,7 @@ import { cityBySlug, DEFAULT_CITY } from '../data/cities.js';
 import { aartis } from '../data/aartis.js';
 import { istDateParts, time, timeRel, rangeInside, rangeOutside, longDate } from '../lib/format.js';
 import LiveBoard from './LiveBoard.js';
+import WhatsAppCTA from './WhatsAppCTA.js';
 import SiteHeader, { SiteFooter } from './SiteHeader.js';
 
 export const revalidate = 300;
@@ -113,6 +114,7 @@ export default async function Home() {
                 <PanchangCard p={p} date={date} city={city} />
               </div>
               <Deities />
+              <div className="wrap"><WhatsAppCTA line="Today’s panchang, Rahu Kaal and festival muhurat every morning at 6 AM. Free, no spam." /></div>
             </>
           }
         />

@@ -4,6 +4,7 @@ import { time, range, rangeInside, longDate, longDateHi, istDateParts, isoDate }
 import SiteHeader, { SiteFooter } from '../SiteHeader.js';
 import SamagriChecklist from './SamagriChecklist.js';
 import CitySelect from './CitySelect.js';
+import WhatsAppCTA from '../WhatsAppCTA.js';
 
 const SITE = 'https://hindus.live';
 
@@ -69,6 +70,7 @@ export default function PujaView({ puja, city }) {
         </section>
 
         <div className="wrap puja-body">
+          <WhatsAppCTA compact line="Get muhurat reminders for every festival on WhatsApp." />
           <nav className="toc" aria-label="On this page">
             <a href="#about">About</a><a href="#samagri">Samagri list</a><a href="#vidhi">Puja vidhi</a><a href="#tips">Tips</a><a href="#cities">All cities</a><a href="#faq">FAQ</a>
           </nav>

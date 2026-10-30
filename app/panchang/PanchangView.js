@@ -4,6 +4,7 @@ import { cities } from '../../data/cities.js';
 import { time, timeRel, range, rangeInside, rangeOutside, longDate, longDateHi, isoDate, addDays, duration } from '../../lib/format.js';
 import SiteHeader, { SiteFooter } from '../SiteHeader.js';
 import CityPicker from './CityPicker.js';
+import WhatsAppCTA from '../WhatsAppCTA.js';
 
 const SITE = 'https://hindus.live';
 
@@ -75,6 +76,8 @@ export default function PanchangView({ city, date, isToday }) {
             </nav>
           </div>
         </section>
+
+        <div className="wrap"><WhatsAppCTA compact line="Get this panchang on WhatsApp every morning at 6 AM." /></div>
 
         <div className="wrap pan-grid">
           <section className="pcard wide" aria-labelledby="h-panch">

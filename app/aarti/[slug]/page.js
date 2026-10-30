@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { aartis, aartiBySlug, KIND_LABEL } from '../../../data/aartis.js';
 import SiteHeader, { SiteFooter } from '../../SiteHeader.js';
 import Reader from '../Reader.js';
+import WhatsAppCTA from '../../WhatsAppCTA.js';
 
 const SITE = 'https://hindus.live';
 export const dynamicParams = false;
@@ -72,6 +73,8 @@ export default async function AartiPage({ params }) {
             ))}
           </div>
         </Reader>
+
+        <WhatsAppCTA compact line="Daily panchang and festival aarti, every morning on WhatsApp." />
 
         <dl className="aarti-meta">
           <dt>Written by</dt><dd>{a.author}</dd>
