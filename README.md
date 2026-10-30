@@ -72,3 +72,15 @@ Use only YouTube's embed player. Don't download, re-stream or hide YouTube brand
 - To add next year's Diwali, put its date in `DIWALI_DATES` in `lib/muhurat.js`. The test checks that Amavasya prevails at Pradosh Kaal on that date.
 - Auspicious windows are rounded inward and inauspicious ones outward, so a shown time is never outside the real window.
 - Have a pandit review each guide before promoting it, since customs vary by region and family.
+
+## Dhanteras and other evening festivals
+
+- `lib/muhurat.js` has a `FESTIVALS` list. Each entry gives the tithi that must prevail, the label and the date by year. `pradoshMuhurat(kind, date, place)` computes Pradosh Kaal ∩ Vrishabha lagna ∩ that tithi.
+- A guide in `data/pujas.js` names its festival with `muhurat: '<kind>'`. Dhanteras (`dhanteras-puja`) is the second guide.
+- The homepage card shows whichever guide's festival comes next, within 30 days.
+
+## Daily panchang card (hindus.live/card)
+
+- A private page (not linked, not indexed) that draws today's or tomorrow's panchang as a 1080×1350 image for any city, with a ready Hindi caption.
+- Buttons: **Share image** (on phones, opens the share sheet), **Download image**, **Copy caption**.
+- The image is drawn in the browser so Hindi letters join correctly; the text comes from the same panchang engine as the site.

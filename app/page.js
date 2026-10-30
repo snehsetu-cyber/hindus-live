@@ -1,6 +1,7 @@
 import { loadStatus } from '../lib/status.js';
 import { computePanchang } from '../lib/panchang.js';
-import { lakshmiPujaMuhurat, DIWALI_DATES } from '../lib/muhurat.js';
+import { pradoshMuhurat } from '../lib/muhurat.js';
+import { upcomingPujas } from '../lib/upcoming.js';
 import { cityBySlug, DEFAULT_CITY } from '../data/cities.js';
 import { aartis } from '../data/aartis.js';
 import { istDateParts, time, timeRel, rangeInside, rangeOutside, longDate } from '../lib/format.js';
@@ -32,21 +33,19 @@ function Greeting({ p, date, city }) {
   );
 }
 
-function DiwaliCard({ city }) {
-  const t = istDateParts();
-  const date = DIWALI_DATES[t.y];
-  if (!date) return null;
-  const days = Math.round((Date.UTC(date.y, date.m - 1, date.d) - Date.UTC(t.y, t.m - 1, t.d)) / 86400000);
-  if (days < 0 || days > 30) return null;
-  const m = lakshmiPujaMuhurat(date, city);
+function FestivalCard({ city }) {
+  const next = upcomingPujas(istDateParts())[0];
+  if (!next) return null;
+  const { puja, date, days } = next;
+  const m = pradoshMuhurat(puja.muhurat, date, city);
   return (
-    <a className="diwali-card" href="/puja/diwali-lakshmi-puja">
+    <a className="diwali-card" href={`/puja/${puja.slug}`}>
       <svg width="130" height="130" viewBox="0 0 120 120" aria-hidden="true">
         <path d="M60 14c14 18 14 32 0 46-14-14-14-28 0-46z" fill="#FFC870" />
         <path d="M18 78h84c-4 18-22 28-42 28S22 96 18 78z" fill="#FFC870" />
       </svg>
-      <div className="dc-eyebrow">दीपावली · {days === 0 ? 'TODAY' : `${days} DAY${days === 1 ? '' : 'S'} TO GO`}</div>
-      <div className="dc-title" lang="hi">लक्ष्मी पूजा</div>
+      <div className="dc-eyebrow">{puja.festivalHi} · {days === 0 ? 'TODAY' : `${days} DAY${days === 1 ? '' : 'S'} TO GO`}</div>
+      <div className="dc-title" lang="hi">{puja.title.hi}</div>
       <div className="dc-sub">{longDate(date)} · muhurat {m.muhurat ? rangeInside(m.muhurat, date) : ''} ({city.name})</div>
       <span className="dc-cta">Samagri list &amp; vidhi →</span>
     </a>
@@ -110,7 +109,7 @@ export default async function Home() {
           middle={
             <>
               <div className="wrap home-cards">
-                <DiwaliCard city={city} />
+                <FestivalCard city={city} />
                 <PanchangCard p={p} date={date} city={city} />
               </div>
               <Deities />

@@ -28,3 +28,15 @@ for (const dt of Object.values(DIWALI_DATES)) {
   assert.ok(x.amavasya.start <= x.pradosh.start && x.amavasya.end > x.pradosh.start, `Diwali ${dt.y}: Amavasya at Pradosh`);
 }
 console.log('Muhurat tests passed');
+
+// Dhanteras 2026, New Delhi: Drik Panchang 6:02–7:57 PM; Pradosh 5:32–8:09 PM.
+import { dhanterasMuhurat, FESTIVALS } from '../lib/muhurat.js';
+const dh = dhanterasMuhurat(FESTIVALS.dhanteras.dates[2026], cityBySlug('new-delhi'));
+assert.ok(!dh.fallback, 'dhanteras vrishabha overlap');
+assert.ok(Math.abs(mins(dh.muhurat.start) - hm('18:02')) <= 2 && Math.abs(mins(dh.muhurat.end) - hm('19:57')) <= 2, 'dhanteras muhurat');
+assert.ok(Math.abs(mins(dh.pradosh.start) - hm('17:32')) <= 2, 'dhanteras pradosh');
+for (const [k, f] of Object.entries(FESTIVALS)) for (const dt of Object.values(f.dates)) {
+  const x = (await import('../lib/muhurat.js')).pradoshMuhurat(k, dt, cityBySlug('new-delhi'));
+  assert.ok(x.tithi.start <= x.pradosh.start && x.tithi.end > x.pradosh.start, `${k} ${dt.y}: tithi at Pradosh`);
+}
+console.log('Dhanteras tests passed');

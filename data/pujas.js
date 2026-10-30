@@ -7,11 +7,139 @@
 
 export const pujas = [
   {
+    slug: 'dhanteras-puja',
+    festival: 'Dhanteras',
+    festivalHi: 'धनतेरस',
+    muhurat: 'dhanteras',
+    title: { en: 'Dhanteras Puja', hi: 'धनतेरस पूजा' },
+    summary: 'How to do Dhanteras puja at home: muhurat for your city, Yama Deepam, the samagri list, step-by-step vidhi and what to buy.',
+    metaLine: 'Samagri list, Yama Deepam and step-by-step Dhanvantari, Kuber and Lakshmi puja at home.',
+    intro: [
+      'Dhanteras, or Dhantrayodashi, opens the five days of Diwali. It falls on the Trayodashi of Kartik Krishna paksha, two days before Lakshmi Puja. Families worship Lord Dhanvantari for good health, and Kuber and Goddess Lakshmi for prosperity.',
+      'It is also the day for buying something new for the home — usually metal utensils, silver or gold, or a new broom — and for lighting the Yama Deepam after sunset, a lamp for the protection of the family. The evening puja is done in Pradosh Kaal, ideally while the steady Vrishabha lagna rises and Trayodashi is still on.',
+    ],
+    samagri: [
+      {
+        group: 'For the altar', hi: 'चौकी के लिए',
+        items: [
+          ['Wooden chowki (low stool)', 'लकड़ी की चौकी'],
+          ['Red or yellow cloth', 'लाल या पीला कपड़ा'],
+          ['Lakshmi and Ganesh idols or a picture', 'लक्ष्मी-गणेश की मूर्ति या चित्र'],
+          ['Kuber picture or idol (optional)', 'कुबेर का चित्र (वैकल्पिक)'],
+          ['Dhanvantari picture (optional)', 'धन्वंतरि का चित्र (वैकल्पिक)'],
+          ['Kalash with mango leaves', 'कलश और आम के पत्ते'],
+          ['Asan (mat) to sit on', 'आसन'],
+        ],
+      },
+      {
+        group: 'Puja thali', hi: 'पूजा की थाली',
+        items: [
+          ['Roli or kumkum', 'रोली / कुमकुम'],
+          ['Haldi (turmeric)', 'हल्दी'],
+          ['Akshat (unbroken rice)', 'अक्षत'],
+          ['Gangajal', 'गंगाजल'],
+          ['Mauli / kalava', 'मौली / कलावा'],
+          ['Incense sticks and dhoop', 'अगरबत्ती और धूप'],
+          ['Camphor', 'कपूर'],
+          ['Paan and supari', 'पान और सुपारी'],
+        ],
+      },
+      {
+        group: 'Flowers and bhog', hi: 'फूल और भोग',
+        items: [
+          ['Marigold flowers and garland', 'गेंदे के फूल और माला'],
+          ['Sweets', 'मिठाई'],
+          ['Jaggery and coriander seeds (dhaniya)', 'गुड़ और साबुत धनिया'],
+          ['Seasonal fruits', 'फल'],
+        ],
+      },
+      {
+        group: 'Lamps', hi: 'दीपक',
+        items: [
+          ['Ghee diya for the altar', 'घी का दीपक'],
+          ['Four-wick diya for Yama Deepam (clay or wheat dough)', 'चौमुखा दीपक (यम दीपक)'],
+          ['Mustard oil', 'सरसों का तेल'],
+          ['Cotton wicks', 'रुई की बत्ती'],
+          ['Clay diyas (13 is traditional in many homes)', 'मिट्टी के दीये'],
+        ],
+      },
+      {
+        group: 'Dhanteras purchase', hi: 'धनतेरस की खरीदारी',
+        items: [
+          ['A new metal utensil (brass, copper or steel)', 'नया बर्तन'],
+          ['Silver or gold coin (optional)', 'चांदी या सोने का सिक्का'],
+          ['New broom', 'नई झाड़ू'],
+          ['Gomti chakra (optional)', 'गोमती चक्र (वैकल्पिक)'],
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: 'Clean and decorate the home', hi: 'घर की सफाई और सजावट', when: 'During the day',
+        text: 'Finish the Diwali cleaning, especially the entrance and the puja corner. Hang a toran on the main door and make a rangoli at the entrance.',
+      },
+      {
+        title: 'Buy something new', hi: 'नई वस्तु की खरीदारी', when: 'During the day or evening',
+        text: 'Buying a new utensil, silver or gold, or a new broom on Dhanteras is believed to bring prosperity. Many families put a little water, rice or sweets into a new vessel before bringing it home, rather than bringing it in empty.',
+      },
+      {
+        title: 'Set up the altar', hi: 'चौकी सजाएं', when: 'Before the muhurat',
+        text: 'Cover the chowki with the red cloth and seat Lakshmi and Ganesh, with Kuber and Dhanvantari pictures if you have them. Place the kalash, light the ghee diya and keep the thali ready. Put the day’s new purchases, coins and jewellery near the altar.',
+      },
+      {
+        title: 'Purify and take the sankalp', hi: 'शुद्धि और संकल्प', when: 'When the muhurat begins',
+        text: 'Sit facing east or north. Sprinkle Gangajal on yourself and the altar. With water, akshat and a flower in your right hand, say your name, the place and the date, and that you are doing Dhanteras puja for your family’s health and prosperity.',
+      },
+      {
+        title: 'Worship Ganesh first', hi: 'गणेश पूजन',
+        text: 'Offer water, roli, akshat, flowers and a sweet to Ganesh and pray that the puja goes ahead without obstacles.',
+        mantra: 'ॐ गं गणपतये नमः',
+      },
+      {
+        title: 'Worship Lord Dhanvantari', hi: 'धन्वंतरि पूजन',
+        text: 'Dhanvantari, the physician of the gods, appeared on this day. Offer flowers, akshat and naivedya and pray for good health for everyone in the family. Many families offer jaggery mixed with coriander seeds.',
+        mantra: 'ॐ धन्वंतरये नमः',
+      },
+      {
+        title: 'Worship Kuber and Lakshmi', hi: 'कुबेर और लक्ष्मी पूजन',
+        text: 'Offer roli, haldi, akshat, flowers and sweets to Lakshmi and Kuber. Put a tilak on the new purchases, coins and jewellery and offer them a flower. Pray for prosperity earned honestly.',
+        mantra: 'ॐ महालक्ष्म्यै नमः',
+      },
+      {
+        title: 'Light the Yama Deepam', hi: 'यम दीपदान', when: 'After sunset',
+        text: 'Light the four-wick diya with mustard oil and place it outside the main door, facing south, for the protection of the family. Then light the clay diyas around the home.',
+      },
+      {
+        title: 'Perform the aarti', hi: 'आरती',
+        text: 'Perform the Ganesh aarti, and many families also sing Om Jai Jagdish Hare. Finish with the Karpur Gauram verse while offering the camphor flame.',
+        links: [['Jai Ganesh Deva', '/aarti/jai-ganesh-deva'], ['Om Jai Jagdish Hare', '/aarti/om-jai-jagdish-hare'], ['Karpur Gauram', '/aarti/karpur-gauram']],
+      },
+      {
+        title: 'Prayer and prasad', hi: 'प्रार्थना और प्रसाद',
+        text: 'Bow down, ask forgiveness for any mistakes in the puja, and share the prasad with the family.',
+      },
+    ],
+    tips: [
+      'Do the puja within the muhurat for your city; the Yama Deepam is lit in Pradosh Kaal, after sunset.',
+      'Many families avoid buying sharp iron objects, glass and black items on Dhanteras, and avoid bringing home an empty vessel.',
+      'Lakshmi Puja is two days later, on Diwali — keep the new utensils and coins for that puja too.',
+      'Keep lit diyas away from curtains and out of reach of children and pets.',
+    ],
+    faqs: [
+      ['Why is Dhanteras celebrated?', 'It marks the appearance of Lord Dhanvantari, the god of health, and begins the Diwali festival. Families pray for health and prosperity and buy something new for the home.'],
+      ['What should I buy on Dhanteras?', 'Commonly a metal utensil, a silver or gold coin, or a new broom. What matters is buying something useful for the home; it does not have to be expensive.'],
+      ['What is Yama Deepam?', 'A four-wick lamp lit outside the main door, facing south, on Dhanteras evening. It is offered to Yamaraj for the protection of the family.'],
+      ['Can I do the puja without a pandit?', 'Yes. Most families do it themselves at home following steps like these. Follow your family’s own tradition where it differs.'],
+    ],
+  },
+  {
     slug: 'diwali-lakshmi-puja',
     festival: 'Diwali',
+    festivalHi: 'दीपावली',
     muhurat: 'lakshmiPuja',
     title: { en: 'Diwali Lakshmi Puja', hi: 'दिवाली लक्ष्मी पूजा' },
     summary: 'How to do Lakshmi–Ganesh puja at home on Diwali: muhurat for your city, the full samagri list and step-by-step vidhi.',
+    metaLine: 'Full samagri list and step-by-step Lakshmi–Ganesh puja vidhi at home.',
     intro: [
       'Lakshmi Puja is the heart of Diwali. On the evening of Kartik Amavasya, families clean and light up their homes to welcome Goddess Lakshmi, who brings wealth, well-being and good fortune. Ganesh is worshipped first, as at the start of every puja, so that the worship goes ahead without obstacles.',
       'You do not need a pandit to do this puja at home. What matters most is a clean home, a sincere heart and doing the puja in the right muhurat — the evening window when Pradosh Kaal, the steady Vrishabha lagna and Amavasya all overlap.',

@@ -1,4 +1,4 @@
-import { lakshmiPujaMuhurat, DIWALI_DATES } from '../../lib/muhurat.js';
+import { pradoshMuhurat, festivalDateFor, FESTIVALS } from '../../lib/muhurat.js';
 import { cities } from '../../data/cities.js';
 import { time, range, rangeInside, longDate, longDateHi, istDateParts, isoDate } from '../../lib/format.js';
 import SiteHeader, { SiteFooter } from '../SiteHeader.js';
@@ -9,23 +9,22 @@ import WhatsAppCTA from '../WhatsAppCTA.js';
 const SITE = 'https://hindus.live';
 
 // The festival date to show: this year's, or the latest known one.
-export function festivalDate() {
-  const y = istDateParts().y;
-  return DIWALI_DATES[y] || DIWALI_DATES[Math.max(...Object.keys(DIWALI_DATES).map(Number))];
+export function festivalDate(puja) {
+  return festivalDateFor(puja.muhurat, istDateParts().y);
 }
 
 const memo = new Map();
-export function muhuratFor(city, date) {
-  const k = `${city.slug}|${isoDate(date)}`;
-  if (!memo.has(k)) memo.set(k, lakshmiPujaMuhurat(date, city));
+export function muhuratFor(puja, city, date) {
+  const k = `${puja.muhurat}|${city.slug}|${isoDate(date)}`;
+  if (!memo.has(k)) memo.set(k, pradoshMuhurat(puja.muhurat, date, city));
   return memo.get(k);
 }
 
 export function pujaMeta(puja, city, path) {
-  const date = festivalDate();
-  const m = muhuratFor(city, date);
+  const date = festivalDate(puja);
+  const m = muhuratFor(puja, city, date);
   const title = `${puja.title.en} ${date.y}: Muhurat in ${city.name}, Samagri List & Vidhi`;
-  const description = `${puja.title.en} on ${longDate(date)}. Muhurat in ${city.name}: ${rangeInside(m.muhurat, date)}. Full samagri list and step-by-step Lakshmi–Ganesh puja vidhi at home.`;
+  const description = `${puja.title.en} on ${longDate(date)}. Muhurat in ${city.name}: ${rangeInside(m.muhurat, date)}. ${puja.metaLine}`;
   return { title, description, alternates: { canonical: `${SITE}${path}` }, openGraph: { title, description, url: `${SITE}${path}` } };
 }
 
@@ -37,8 +36,9 @@ function daysUntil(date) {
 }
 
 export default function PujaView({ puja, city }) {
-  const date = festivalDate();
-  const m = muhuratFor(city, date);
+  const fest = FESTIVALS[puja.muhurat];
+  const date = festivalDate(puja);
+  const m = muhuratFor(puja, city, date);
   const days = daysUntil(date);
   const countdown = days > 1 ? `${days} days to go` : days === 1 ? 'Tomorrow' : days === 0 ? 'Today' : null;
 
@@ -51,17 +51,18 @@ export default function PujaView({ puja, city }) {
             <nav className="crumbs light" aria-label="Breadcrumb"><a href="/puja">Puja Vidhi</a> › {puja.festival}</nav>
             <div className="eyebrow light">{puja.festival} {date.y}{countdown ? ` · ${countdown}` : ''}</div>
             <h1>{puja.title.en} <span lang="hi" className="h1-hi">{puja.title.hi}</span></h1>
-            <p className="pan-sub">{longDate(date)} · {longDateHi(date)} · Kartik Amavasya</p>
+            <p className="pan-sub">{longDate(date)} · {longDateHi(date)} · {fest.hinduDate}</p>
 
             <div className="muhurat-card">
-              <div className="mc-label">Lakshmi Puja muhurat in {city.name}</div>
+              <div className="mc-label">{fest.label} muhurat in {city.name}</div>
               <div className="mc-time">{m.muhurat ? rangeInside(m.muhurat, date) : '—'}</div>
-              {m.fallback && <div className="mc-note">No Vrishabha lagna overlaps Pradosh Kaal here; this is the Pradosh Kaal window during Amavasya.</div>}
+              {m.fallback && <div className="mc-note">No Vrishabha lagna overlaps Pradosh Kaal here; this is the Pradosh Kaal window during {fest.tithiName}.</div>}
               <dl className="mc-grid">
                 <dt>Pradosh Kaal</dt><dd>{rangeInside(m.pradosh, date)}</dd>
                 <dt>Vrishabha Kaal</dt><dd>{m.vrishabha ? rangeInside(m.vrishabha, date) : '—'}</dd>
-                <dt>Amavasya</dt><dd>{range(m.amavasya, date)}</dd>
-                <dt>Nishita Kaal</dt><dd>{rangeInside(m.nishita, date)}</dd>
+                <dt>{fest.tithiName}</dt><dd>{range(m.tithi, date)}</dd>
+                {fest.yamaDeepam && <><dt>Yama Deepam</dt><dd>{rangeInside(m.pradosh, date)}</dd></>}
+                {fest.nishita && <><dt>Nishita Kaal</dt><dd>{rangeInside(m.nishita, date)}</dd></>}
                 <dt>Sunset</dt><dd>{time(m.panchang.sunset)}</dd>
               </dl>
               <CitySelect cities={cities} current={city.slug} base={`/puja/${puja.slug}`} />
@@ -109,13 +110,13 @@ export default function PujaView({ puja, city }) {
           </section>
 
           <section id="cities" aria-labelledby="h-cities">
-            <h2 id="h-cities">Lakshmi Puja muhurat {date.y}, city by city</h2>
+            <h2 id="h-cities">{fest.label} muhurat {date.y}, city by city</h2>
             <div className="table-wrap">
               <table className="mtable">
                 <thead><tr><th scope="col">City</th><th scope="col">Muhurat</th><th scope="col">Pradosh Kaal</th></tr></thead>
                 <tbody>
                   {cities.map((c) => {
-                    const x = muhuratFor(c, date);
+                    const x = muhuratFor(puja, c, date);
                     return (
                       <tr key={c.slug} className={c.slug === city.slug ? 'current' : ''}>
                         <th scope="row"><a href={`/puja/${puja.slug}/${c.slug}`}>{c.name}</a></th>
@@ -144,7 +145,7 @@ export default function PujaView({ puja, city }) {
       </main>
       <SiteFooter>
         Muhurat calculated for {city.name} with the Drik method: Pradosh Kaal, overlapped with the fixed Vrishabha lagna, while
-        Amavasya prevails (Lahiri ayanamsa, times in IST, rounded inward to the minute so you never start early or finish late). Customs differ between regions and families — follow your family’s
+        {fest.tithiName} prevails (Lahiri ayanamsa, times in IST, rounded inward to the minute so you never start early or finish late). Customs differ between regions and families — follow your family’s
         tradition where it differs.
       </SiteFooter>
     </>
