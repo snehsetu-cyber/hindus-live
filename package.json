@@ -8,6 +8,7 @@
     "test": "node test/youtube.test.mjs && node test/panchang.test.mjs && node test/aartis.test.mjs && node test/muhurat.test.mjs"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "astronomy-engine": "^2.1.19",
     "next": "^16.4.3",
     "react": "^19.3.1",
